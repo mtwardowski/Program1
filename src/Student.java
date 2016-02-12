@@ -22,12 +22,12 @@ public class Student
 	private	 String	fullName,
 					firstName,
 					LastName;
+
 	
 	/**	
 	 *	To hold the individual grades
 	 */						
-	private	 int programGrade,
-				 examGrade;	
+	private Grades grades;	
 	
 	/**	The setup method initializes the name of the student with the given name and
 	 *	PRECONDITION:	
@@ -36,11 +36,10 @@ public class Student
 	public void setup()
 	{
 		setName();
+		grades = new Grades();
 		setGrades();
 	}
 	
-	
-
 	/**	The setName method initializes the name of the student with the given name.
 	 *	PRECONDITION:	None.
 	 *	POSTCONDITION:	The student's name is initialized.
@@ -50,7 +49,7 @@ public class Student
 		Scanner keyboard = new Scanner(System.in);
 		
 		Pattern nameFormat = Pattern.compile("^[A-Za-z ]++,[A-Za-z ]++$");
-		
+	
 		// prompts the user to enter the full name of a student
 		System.out.println("\nPlease enter the student's full name in the format: Last Name, First Name");
 		fullName = keyboard.nextLine();
@@ -67,24 +66,27 @@ public class Student
 		String lastName = fullName.substring(0,fullName.indexOf(","));
 		String firstName = fullName.substring(fullName.indexOf(",") +1);
 		fullName = firstName.trim() + " " + lastName.trim(); // trims any extra spaces and reorganizes as FirstName LastName
-		
-		System.out.println(fullName);
-		
 	}
 
-	/**	The readGrades method prompts the user and enters the grades for the student.
+	/**	The setGrades method calls the setup method of the Grades class to
+	 *  prompts the user to enter the grades for the student.
 	 *	PRECONDITION:	The student is assumed to have already been given a name.
 	 *	POSTCONDITION:	The student's individual grades are initialized from the keyboard.
 	 */
 	private void setGrades()
 	{
-		Scanner keyboard = new Scanner(System.in);
-
-		System.out.println("\nPlease, enter the program and exam grades for "
-							+ fullName + ":");
-		programGrade = keyboard.nextInt();
-		examGrade = keyboard.nextInt();
+		grades.setup(fullName);
 		
+	}
+	
+	/**
+	 * 
+	 */
+	public void display()
+	{
+		
+		System.out.printf( "%-25s", fullName);
+		grades.display();
 	}
 
 	/**	The overallGrade method determines (and returns) the student's average grade.
@@ -93,17 +95,9 @@ public class Student
 	 */
 	public double overallGrade()
 	{
-		final double
-				 PROGRAM_WEIGHT = 0.40,				//40% for the program,
-				 EXAM_WEIGHT = 1 - PROGRAM_WEIGHT;		//and the rest for the exam
-
-		double theOverallGrade;
-										//The student overall grade is
-										//a simple weighted average
-		theOverallGrade = programGrade * PROGRAM_WEIGHT
-							+ examGrade * EXAM_WEIGHT;
-
-		return theOverallGrade;						//We return the student average
+		double averageGrade = grades.average();
+		
+		return averageGrade;			//We return the student average
 	}
 
 				

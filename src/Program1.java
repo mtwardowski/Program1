@@ -49,20 +49,26 @@ public class Program1
         
         System.out.println("Good " + greeting + "!");
 
-		first = new Student();						//	"Creates" or "instantiates"
-		second = new Student();						//		our 3 students
+		first = new Student();			//	"Creates" or "instantiates"
+		second = new Student();			//		our 3 students
 		third = new Student();
 		
 		first.setup();			//	Assigns the names of the 2 students
 		second.setup();
 		third.setup();
 		
+		System.out.printf("%n%-25s%-14s    %-11s%n","Student Name:","Program Grade:","Exam Grade:");
+		first.display();
+		second.display();
+		third.display();
+		
 		theSectionAverage = (first.overallGrade()	//	Computes the section average
 							+ second.overallGrade()
 							+ third.overallGrade())/3;
 
-		System.out.println("\nThe overall section average is: " + theSectionAverage);
-		System.out.println();
-		System.out.println("Goodbye!");
+		System.out.print("\nThe overall section average is: ");
+		System.out.printf("%.2f%n", theSectionAverage);
+		
+		System.out.println("\nGoodbye!");
 	}
 }
