@@ -3,15 +3,15 @@
 	
 	@author	Michael Twardowski
 	
-	The Student class defines a student as having a name and a set of grades.
-	The following operations are available on a student:
-	.	setName(someName)	Sets the name of the student to someName (a String)
-	.	readGrades()		Reads the set of grades for the student
-	.	overallGrade()		Returns (as a double) the overall grade of the student
+	The Student class defines a student as having a name and grades.
+	The following operations are available on a Student:
+	. 	setup()				Initializes the student names and grades.
+	.	display()			Prints the full name of the student and their grades to the console.
+	.	overallGrade()		Returns (as a double) the overall grade(weighted course average) of the student.
 */
 
 import java.util.Scanner;
-import java.util.regex.Pattern;				//To be able to define a Keyboard
+import java.util.regex.Pattern;
 
 public class Student
 {
@@ -19,19 +19,15 @@ public class Student
 	/**	
 	 *	To hold the name of the student
 	 */
-	private	 String	fullName,
-					firstName,
-					LastName;
+	private	 String	fullName;
 
-	
 	/**	
 	 *	To hold the individual grades
 	 */						
 	private Grades grades;	
 	
-	/**	The setup method initializes the name of the student with the given name and
-	 *	PRECONDITION:	
-	 *	POSTCONDITION:	
+	/**	
+	 * Initializes the student names and grades.
 	 */
 	public void setup()
 	{
@@ -40,15 +36,15 @@ public class Student
 		setGrades();
 	}
 	
-	/**	The setName method initializes the name of the student with the given name.
-	 *	PRECONDITION:	None.
-	 *	POSTCONDITION:	The student's name is initialized.
+	/**The setName method initializes the name of the student with the given name.
+	 * The student name must be given in the format: Lastname, Firstname.
+	 * The student grades must be given separated by spaces: 100 100 
 	 */
 	private void setName()
 	{
 		Scanner keyboard = new Scanner(System.in);
 		
-		Pattern nameFormat = Pattern.compile("^[A-Za-z ]++,[A-Za-z ]++$");
+		Pattern nameFormat = Pattern.compile("^[A-Za-z ]++,[A-Za-z ]++$"); // the pattern used to check that a comma separates the two names
 	
 		// prompts the user to enter the full name of a student
 		System.out.println("\nPlease enter the student's full name in the format: Last Name, First Name");
@@ -63,42 +59,33 @@ public class Student
 
 		}
 		
-		String lastName = fullName.substring(0,fullName.indexOf(","));
+		String lastName = fullName.substring(0,fullName.indexOf(",")); //finds the last name and first name
 		String firstName = fullName.substring(fullName.indexOf(",") +1);
 		fullName = firstName.trim() + " " + lastName.trim(); // trims any extra spaces and reorganizes as FirstName LastName
 	}
 
 	/**	The setGrades method calls the setup method of the Grades class to
-	 *  prompts the user to enter the grades for the student.
-	 *	PRECONDITION:	The student is assumed to have already been given a name.
-	 *	POSTCONDITION:	The student's individual grades are initialized from the keyboard.
+	 *  that will prompt the user to enter the grades for the student.
 	 */
 	private void setGrades()
 	{
 		grades.setup(fullName);
-		
 	}
 	
-	/**
-	 * 
+	/**The Display method prints the full name of the student and their grades to the console.
 	 */
 	public void display()
 	{
-		
 		System.out.printf( "%-25s", fullName);
 		grades.display();
 	}
 
-	/**	The overallGrade method determines (and returns) the student's average grade.
-	 *	PRECONDITION:	The student has already been given individual grades.
-	 *	POSTCONDITION:	The student's overall grade is returned.
+	/**	The overallGrade method returns (as a double) the overall grade(course average) of the student.
 	 */
 	public double overallGrade()
 	{
 		double averageGrade = grades.average();
 		
-		return averageGrade;			//We return the student average
-	}
-
-				
+		return averageGrade;	
+	}		
 }
