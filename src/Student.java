@@ -62,6 +62,8 @@ public class Student
 		String lastName = fullName.substring(0,fullName.indexOf(",")); //finds the last name and first name
 		String firstName = fullName.substring(fullName.indexOf(",") +1);
 		fullName = firstName.trim() + " " + lastName.trim(); // trims any extra spaces and reorganizes as FirstName LastName
+		System.out.println("\nPlease enter the set of grades for "
+				 + fullName + ":");
 	}
 
 	/**	The setGrades method calls the setup method of the Grades class to
@@ -69,7 +71,7 @@ public class Student
 	 */
 	private void setGrades()
 	{
-		grades.setup(fullName);
+		grades.setup();
 	}
 	
 	/**The Display method prints the full name of the student and their grades to the console.

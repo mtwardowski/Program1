@@ -5,7 +5,7 @@
 	
 	The Grades class defines grades for a student.
 	The following operations are available for Grades:
-	. 	setup(fullName) 	Prompts the client to input grades for student and initializes them.
+	. 	setup() 			Prompts the client to input grades for student and initializes them.
 	.	display()			Prints grades of the student to the console.
 	.	average()			Returns (as a double) the overall grade(weighted course average) of the student.
 */
@@ -22,14 +22,12 @@ public class Grades
 	 			   examGrade;
 
 	/**	Prompts the client to input grades for student and initializes them.
-	 * @Param requires the students full name.
 	 */
-	public void setup(String fullName)
+	public void setup()
 	{
 		Scanner keyboard = new Scanner(System.in);
 	
-		System.out.println("\nPlease, enter the program and exam grades seperated by spaces for "
-							 + fullName + ":"); // prompts the client for grade input
+		System.out.print("\tEnter a program and an exam grade seperated by spaces: "); // prompts the client for grade input
 		programGrade = keyboard.nextDouble();
 		examGrade = keyboard.nextDouble();
 	}
